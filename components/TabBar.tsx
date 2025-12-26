@@ -1,24 +1,16 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import {BottomTabBarProps} from '@react-navigation/bottom-tabs'
-import { Feather } from '@expo/vector-icons'
+import { View, StyleSheet } from 'react-native'
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 import TabBarButton from './TabBarButton';
 
 export function TabBar({ state, descriptors, navigation } : BottomTabBarProps) {
-    const icon = {
-        index: (props:any) => <Feather name='home' size={24} {...props} />,
-        explore: (props:any) => <Feather name='compass' size={24} {...props} />,
-        profile: (props:any) => <Feather name='user' size={24} {...props} />,
-    }
   return (
     <View style={styles.tabbar}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
-          options.tabBarLabel !== undefined
+          typeof options.tabBarLabel === 'string'
             ? options.tabBarLabel
-            : options.title !== undefined
-            ? options.title
-            : route.name;
+            : options.title ?? route.name;
 
         const isFocused = state.index === index;
 

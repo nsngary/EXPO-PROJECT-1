@@ -1,7 +1,22 @@
-import { StyleSheet, Text, View, TouchableOpacity, Pressable, Animated } from 'react-native'
-import React , { useEffect }from 'react'
+import { Pressable, StyleSheet } from 'react-native'
+import { useEffect } from 'react'
 import { icon } from '@/constants/icon'
-import { useSharedValue, withSpring } from 'react-native-reanimated';
+import Animated, {
+    Extrapolation,
+    interpolate,
+    useAnimatedStyle,
+    useSharedValue,
+    withSpring,
+} from 'react-native-reanimated'
+
+type TabBarButtonProps = {
+    onPress: () => void
+    onLongPress: () => void
+    isFocused: boolean
+    routeName: string
+    color: string
+    label: string
+}
 
 const TabBarButton = ({
     onPress, 
@@ -10,30 +25,28 @@ const TabBarButton = ({
     routeName, 
     color, 
     label
-}: {
-    onPress:Function, 
-    onLongPress:Function, 
-    isFocused:boolean, 
-    routeName:string, 
-    color:string, 
-    label:string
-}) => {
-    const scale = useSharedValue(0);
+}: TabBarButtonProps) => {
+    const scale = useSharedValue(isFocused ? 1 : 0)
 
     useEffect(() => {
-        scale.value = withSpring(
-            typeof isFocused === 'boolean' ? 
-            (isFocused ? 1 : 0) : isFocused, {duration: 350});
-    }, [scale, isFocused]);
+        scale.value = withSpring(isFocused ? 1 : 0)
+    }, [isFocused, scale])
 
-    const animatedTextStyle =  ( () => {
-        const opacity = interpolate(scale.value, [0, 1], [1, 0]); 
+    const animatedTextStyle = useAnimatedStyle(() => {
+        const opacity = interpolate(
+            scale.value,
+            [0, 1],
+            [1, 0],
+            Extrapolation.CLAMP
+        )
         
         return {
             opacity, 
         }
 
-    });
+    })
+
+    const Icon = icon[routeName as keyof typeof icon]
 
   return (
     <Pressable
@@ -41,10 +54,9 @@ const TabBarButton = ({
         onLongPress={onLongPress}
         style={ styles.tabbarItem}
     >
-        {icon[routeName]({
-            color: isFocused ? "#673ab7" : "#222"
-        })}
-        <Animated.Text style={{ color: isFocused ? '#673ab7' : '#222' }, animatedTextStyle}>
+        
+        {Icon ? Icon({ color }) : null}
+        <Animated.Text style={[{ color }, animatedTextStyle]}>
             {label}
         </Animated.Text>
     </Pressable>
