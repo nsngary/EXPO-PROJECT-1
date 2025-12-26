@@ -39,9 +39,12 @@ const TabBarButton = ({
             [1, 0],
             Extrapolation.CLAMP
         )
+
+        const top = interpolate(scale.value, [0, 1], [0, 9]);
         
         return {
             opacity, 
+            top
         }
 
     })
