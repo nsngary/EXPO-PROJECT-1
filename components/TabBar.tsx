@@ -1,11 +1,17 @@
-import { View, StyleSheet, LayoutChangeEvent } from 'react-native';
-import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import TabBarButton from './TabBarButton';
-import { useState } from 'react';
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import { View, StyleSheet, LayoutChangeEvent } from "react-native";
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+// import { Feather } from '@expo/vector-icons'
+import TabBarButton from "./TabBarButton";
+import { useState } from "react";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export function TabBar({ state, descriptors, navigation } : BottomTabBarProps) {
-  const [dimensions, setDimensions] = useState({height: 20, width: 100});
+export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+  const [dimensions, setDimensions] = useState({ height: 20, width: 100 });
 
   const buttonWidth = dimensions.width / state.routes.length;
 
@@ -20,40 +26,55 @@ export function TabBar({ state, descriptors, navigation } : BottomTabBarProps) {
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ translateX: tabPositionX.value }]
-    }
-  })
-  
+      transform: [{ translateX: tabPositionX.value }],
+    };
+  });
+
+  const insets = useSafeAreaInsets();
+
   return (
-    <View onLayout={onTabbarLayout} style={styles.tabbar}>
-      <Animated.View style={[animatedStyle,{
-        position: 'absolute',
-        backgroundColor: '#D8DFEF',
-        borderRadius: 30,
-        marginHorizontal: 12,
-        height: dimensions.height - 15,
-        width: buttonWidth -25
-      }]}
+    <View
+      onLayout={onTabbarLayout}
+      style={[
+        styles.tabbar,
+        {
+          left: insets.left + 15,
+          right: insets.right + 15,
+          paddingHorizontal: 0,
+        },
+      ]}
+    >
+      <Animated.View
+        style={[
+          animatedStyle,
+          {
+            position: "absolute",
+            backgroundColor: "#EEF2FF",
+            borderRadius: 30,
+            height: dimensions.height - 15,
+            width: buttonWidth - 15,
+            left: 7,
+          },
+        ]}
       />
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
-          typeof options.tabBarLabel === 'string'
+          typeof options.tabBarLabel === "string"
             ? options.tabBarLabel
-            : typeof options.title === 'string'
+            : typeof options.title === "string"
             ? options.title
             : route.name;
 
         const isFocused = state.index === index;
 
         const onPress = () => {
-          tabPositionX.value = withSpring(buttonWidth * index, { 
+          tabPositionX.value = withSpring(buttonWidth * index, {
             duration: 750,
-            dampingRatio: 0.55
-            
-          })
+            dampingRatio: 0.55,
+          });
           const event = navigation.emit({
-            type: 'tabPress',
+            type: "tabPress",
             target: route.key,
             canPreventDefault: true,
           });
@@ -65,38 +86,21 @@ export function TabBar({ state, descriptors, navigation } : BottomTabBarProps) {
 
         const onLongPress = () => {
           navigation.emit({
-            type: 'tabLongPress',
+            type: "tabLongPress",
             target: route.key,
           });
         };
 
         return (
-            <TabBarButton
-                key= { route.name }
-                onPress= { onPress }
-                onLongPress = { onLongPress }
-                isFocused= { isFocused }
-                routeName= { route.name }
-                color= { isFocused ? "#673ab7" : "#222" }
-                label = { label } 
-            />
-        //   <TouchableOpacity
-        //     key={ route.name }
-        //     accessibilityRole="button"
-        //     accessibilityState={isFocused ? { selected: true } : {}}
-        //     accessibilityLabel={options.tabBarAccessibilityLabel}
-        //     testID={options.tabBarTestID}
-        //     onPress={onPress}
-        //     onLongPress={onLongPress}
-        //     style={ styles.tabbarItem}
-        //   >
-        //     {icon[route.name]({
-        //         color: isFocused ? "#673ab7" : "#222"
-        //     })}
-        //     <Text style={{ color: isFocused ? '#673ab7' : '#222' }}>
-        //       {label}
-        //     </Text>
-        //   </TouchableOpacity>
+          <TabBarButton
+            key={route.name}
+            onPress={onPress}
+            onLongPress={onLongPress}
+            isFocused={isFocused}
+            routeName={route.name}
+            color={isFocused ? "#673ab7" : "#222"}
+            label={label}
+          />
         );
       })}
     </View>
@@ -105,28 +109,19 @@ export function TabBar({ state, descriptors, navigation } : BottomTabBarProps) {
 
 // snippet : rnstyle
 const styles = StyleSheet.create({
-    tabbar: {
-        // flex: 1,
-        left: 5,
-        right: 5,
-        position: 'absolute',
-        bottom: 50,
-        flexDirection: 'row',
-        justifyContent: 'space-between', 
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        marginHorizontal: 80,
-        paddingVertical: 15,
-        borderRadius: 35,
-        shadowOffset: {width: 0, height: 10},
-        shadowRadius: 10,
-        shadowOpacity: 0.1,
-
-    },
-    // tabbarItem: {
-    //     flex: 1,
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     gap: 5,
-    // }
-})
+  tabbar: {
+    position: "absolute",
+    left: 16,
+    right: 16,
+    bottom: 16,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    paddingVertical: 12,
+    borderRadius: 35,
+    shadowOffset: { width: 0, height: 10 },
+    shadowRadius: 5,
+    shadowOpacity: 0.1,
+  },
+});
