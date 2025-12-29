@@ -3,6 +3,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { StatusBar } from 'expo-status-bar';
 
 // prevent the splah screen from auto-higing before asset loading is 
 void SplashScreen.preventAutoHideAsync();
@@ -27,9 +28,13 @@ export default function RootLayout() {
   }
 
   return (
+    <>
+      {/* <StatusBar style="auto" /> */}
+      <StatusBar style="dark" backgroundColor="#ffffff" translucent={true} hidden={false} />
+
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
-
+    </>
   );
 }

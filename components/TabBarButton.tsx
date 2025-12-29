@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, TouchableOpacity, Pressable, Animated } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Pressable } from 'react-native'
 import React , { useEffect }from 'react'
 import { icon } from '@/constants/icon'
-import { useSharedValue, withSpring } from 'react-native-reanimated';
+import Animated, { interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
 const TabBarButton = ({
     onPress, 
@@ -22,11 +22,24 @@ const TabBarButton = ({
 
     useEffect(() => {
         scale.value = withSpring(
-            typeof isFocused === 'boolean' ? 
-            (isFocused ? 1 : 0) : isFocused, {duration: 350});
+            typeof isFocused === 'boolean' ? (isFocused ? 1 : 0) : isFocused, 
+            {duration: 350});
     }, [scale, isFocused]);
 
-    const animatedTextStyle =  ( () => {
+    const animatedIconStyle = useAnimatedStyle(() => {
+        const scaleValue = interpolate(scale.value, [0, 1], [1, 1.5]);
+
+        const top = interpolate(scale.value, [0, 1], [0, 9]);
+
+        return {
+            transform: [{
+                scale: scaleValue,
+            }],
+            top
+        }
+    });
+
+    const animatedTextStyle = useAnimatedStyle (() => {
         const opacity = interpolate(scale.value, [0, 1], [1, 0]); 
         
         return {
@@ -41,10 +54,13 @@ const TabBarButton = ({
         onLongPress={onLongPress}
         style={ styles.tabbarItem}
     >
-        {icon[routeName]({
-            color: isFocused ? "#673ab7" : "#222"
-        })}
-        <Animated.Text style={{ color: isFocused ? '#673ab7' : '#222' }, animatedTextStyle}>
+        <Animated.View style={animatedIconStyle}>
+            {icon[routeName]({
+                color: isFocused ? "#FFF" : "#222"
+            })}
+        </Animated.View>
+
+        <Animated.Text style={[{ color: isFocused ? '#673ab7' : '#222', fontSize: 12 }, animatedTextStyle]}>
             {label}
         </Animated.Text>
     </Pressable>
