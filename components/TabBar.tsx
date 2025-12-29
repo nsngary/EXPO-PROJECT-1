@@ -1,6 +1,5 @@
-import { View, Text, TouchableOpacity, StyleSheet, LayoutChangeEvent } from 'react-native';
-import {BottomTabBarProps} from '@react-navigation/bottom-tabs'
-import { Feather } from '@expo/vector-icons'
+import { View, StyleSheet, LayoutChangeEvent } from 'react-native';
+import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import TabBarButton from './TabBarButton';
 import { useState } from 'react';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
@@ -25,16 +24,11 @@ export function TabBar({ state, descriptors, navigation } : BottomTabBarProps) {
     }
   })
   
-  const icon = {
-      index: (props:any) => <Feather name='home' size={24} {...props} />,
-      explore: (props:any) => <Feather name='compass' size={24} {...props} />,
-      profile: (props:any) => <Feather name='user' size={24} {...props} />,
-  }
   return (
     <View onLayout={onTabbarLayout} style={styles.tabbar}>
       <Animated.View style={[animatedStyle,{
         position: 'absolute',
-        backgroundColor: '#e0d7f5',
+        backgroundColor: '#D8DFEF',
         borderRadius: 30,
         marginHorizontal: 12,
         height: dimensions.height - 15,
@@ -44,16 +38,20 @@ export function TabBar({ state, descriptors, navigation } : BottomTabBarProps) {
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
-          options.tabBarLabel !== undefined
+          typeof options.tabBarLabel === 'string'
             ? options.tabBarLabel
-            : options.title !== undefined
+            : typeof options.title === 'string'
             ? options.title
             : route.name;
 
         const isFocused = state.index === index;
 
         const onPress = () => {
-          tabPositionX.value = withSpring(buttonWidth * index, { duration: 500})
+          tabPositionX.value = withSpring(buttonWidth * index, { 
+            duration: 750,
+            dampingRatio: 0.55
+            
+          })
           const event = navigation.emit({
             type: 'tabPress',
             target: route.key,

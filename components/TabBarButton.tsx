@@ -1,7 +1,16 @@
-import { StyleSheet, Text, View, TouchableOpacity, Pressable } from 'react-native'
-import React , { useEffect }from 'react'
+import { StyleSheet, Pressable, type PressableProps } from 'react-native'
+import { useEffect } from 'react'
 import { icon } from '@/constants/icon'
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+
+type TabBarButtonProps = {
+    onPress?: PressableProps['onPress'],
+    onLongPress?: PressableProps['onLongPress'],
+    isFocused: boolean,
+    routeName: string,
+    color: string,
+    label: string
+};
 
 const TabBarButton = ({
     onPress, 
@@ -10,15 +19,11 @@ const TabBarButton = ({
     routeName, 
     color, 
     label
-}: {
-    onPress:Function, 
-    onLongPress:Function, 
-    isFocused:boolean, 
-    routeName:string, 
-    color:string, 
-    label:string
-}) => {
+}: TabBarButtonProps) => {
     const scale = useSharedValue(0);
+    const Icon = icon[routeName as keyof typeof icon];
+
+    
 
     useEffect(() => {
         scale.value = withSpring(
@@ -48,6 +53,10 @@ const TabBarButton = ({
 
     });
 
+    if (!Icon) {
+        return null;
+    }
+
   return (
     <Pressable
         onPress={onPress}
@@ -55,12 +64,10 @@ const TabBarButton = ({
         style={ styles.tabbarItem}
     >
         <Animated.View style={animatedIconStyle}>
-            {icon[routeName]({
-                color: isFocused ? "#FFF" : "#222"
-            })}
+            <Icon color={isFocused ? '#2F4474' : '#6B85C2'} />
         </Animated.View>
 
-        <Animated.Text style={[{ color: isFocused ? '#673ab7' : '#222', fontSize: 12 }, animatedTextStyle]}>
+        <Animated.Text style={[{ color: '#6B85C2', fontSize: 12 }, animatedTextStyle]}>
             {label}
         </Animated.Text>
     </Pressable>
