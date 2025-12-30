@@ -16,8 +16,26 @@
 ## 導航架構 (Navigation)
 
 - RootStack: AuthStack / AppTabs
-- AppTabs: index / performance / order / event / profile
+- AppTabs: index(首頁) / performance(業績) / order(訂單) / event(活動) / profile(我的)
 - 每個 Tab 內 stack
+  - index
+    - 最新消息
+    - 禮物箱
+    - 每日簽到
+  - performance
+    - 業績查詢 / 樹狀業績查詢
+    - 獎金明細
+  - order
+    - 線上訂購
+    - 消費紀錄
+  - event
+    - 行事曆
+    - 活動報名 / 簽到
+  - profile
+    - 會員基本資料 / VIP / VIC 資料 (依身分顯示)
+    - 表單中心
+    - 產品檢驗文件 / 見證體驗
+    - 登出 / 設定
 
 ## 資料流與分層 (Data/Domain/UI)
 
