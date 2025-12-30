@@ -9,12 +9,38 @@
 
 ---
 
-## 目標與非目標
+## Goals / Non-Goals
 
 ## App 模組切分 (Feature Map)
 
 ## 導航架構 (Navigation)
 
+- RootStack: AuthStack / AppTabs
+- AppTabs: index / performance / order / event / profile
+- 每個 Tab 內 stack
+
 ## 資料流與分層 (Data/Domain/UI)
+
+## Auth & Session
+
+- token 儲存:　Expo 建議 expo-secure-store
+- 啟動流程: 讀 token -> 驗證/刷新 -> 決定進入的stack
+
+## Permission Model (RBAC)
+
+- role 列表(一般/VIP/VIC)
+- feature-level: 哪些 tab/頁面可見
+- data-level: 同頁不同資料範圍(例如訂單可看哪些)
+
+## API Layer
+
+- baseURL (環境變數)
+- HTTP client (fetch/axios 擇一)
+- error handling、retry、timeout、logging
+
+## Data & State
+
+- server state (React Query / SWR) 或自管
+- client state (Zestand / Context) 擇一 (可寫到 /decisions)
 
 ## 權限/角色 (Role-based access)
