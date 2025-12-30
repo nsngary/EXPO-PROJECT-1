@@ -16,18 +16,24 @@ const roleLabels: Record<Role, string> = {
   vic: 'VIC',
 }
 
+type NavItem = {
+  label: string
+  href: Href
+  visible?: boolean
+}
+
 const MemberInfo = () => {
   const [role, setRole] = useState<Role>('general')
-
-  const navItems = [
-    { label: 'VIP 資料', href: '/(tabs)/profile/vip-info', visible: role === 'vip' },
-    { label: 'VIC 資料', href: '/(tabs)/profile/vic-info', visible: role === 'vic' },
-    { label: '表單中心', href: '/(tabs)/profile/form-center' },
-    { label: '產品檢驗文件', href: '/(tabs)/profile/product-certificates' },
-    { label: '見證體驗', href: '/(tabs)/profile/testimonials' },
-    { label: '設定', href: '/(tabs)/profile/settings' },
-    { label: '登出', href: '/(tabs)/profile/logout' },
-  ].filter((item) => item.visible ?? true)
+  
+  const navItems: NavItem[] = ([
+    { label: 'VIP 資料', href: '/profile/vip-info', visible: role === 'vip' },
+    { label: 'VIC 資料', href: '/profile/vic-info', visible: role === 'vic' },
+    { label: '表單中心', href: '/profile/form-center' },
+    { label: '產品檢驗文件', href: '/profile/product-certificates' },
+    { label: '見證體驗', href: '/profile/testimonials' },
+    { label: '設定', href: '/profile/settings' },
+    { label: '登出', href: '/profile/logout' },
+  ] as const).filter((item) => ('visible' in item ? item.visible : true))
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -54,7 +60,7 @@ const MemberInfo = () => {
       <Text style={styles.subtitle}>功能入口</Text>
       <View>
         {navItems.map((item) => (
-          <Link key={item.href} href={item.href} asChild>
+          <Link key={item.label} href={item.href} asChild>
             <Pressable style={styles.item}>
               <Text style={styles.itemText}>{item.label}</Text>
             </Pressable>
