@@ -1,6 +1,7 @@
 import { StyleSheet, Pressable, type PressableProps } from "react-native";
 import { useEffect } from "react";
 import { icon } from "@/constants/icon";
+import { Text } from "./StyledText";
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -27,6 +28,7 @@ const TabBarButton = ({
 }: TabBarButtonProps) => {
   const scale = useSharedValue(0);
   const Icon = icon[routeName as keyof typeof icon];
+  const AnimatedText = Animated.createAnimatedComponent(Text);
 
   useEffect(() => {
     scale.value = withSpring(
@@ -72,11 +74,11 @@ const TabBarButton = ({
         <Icon color={isFocused ? "#2F4474" : "#6B85C2"} />
       </Animated.View>
 
-      <Animated.Text
-        style={[{ color: "#6B85C2", fontSize: 12 }, animatedTextStyle]}
+      <AnimatedText
+        style={[styles.label, animatedTextStyle]}
       >
         {label}
-      </Animated.Text>
+      </AnimatedText>
     </Pressable>
   );
 };
@@ -89,5 +91,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 5,
+  },
+  label: {
+    color: "#6B85C2",
+    fontSize: 12,
   },
 });

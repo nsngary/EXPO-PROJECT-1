@@ -1,20 +1,20 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-const Page = () => {
+const VicInfo = () => {
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
+      <Text>VIC 資料</Text>
     </View>
   )
 }
 
-export default Page
+export default VicInfo
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  }
-}) 
+  },
+})
