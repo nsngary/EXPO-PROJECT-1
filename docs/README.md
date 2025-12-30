@@ -2,6 +2,7 @@
 
 ## Quick Links
 
+- [legacy](./legacy/)
 - [Architecture](Architecture.md)
 - [TodoList](Todo.md)
 - [Decision](./Decision.md)
