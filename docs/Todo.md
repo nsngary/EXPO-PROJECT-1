@@ -1,5 +1,10 @@
 # ToDoList
 
+## 20251231
+
+- 修正app 根目錄的關係路由
+    - https://docs.expo.dev/router/advanced/authentication/
+
 ## 20251229
 
 1. 任務 1：做出 RootStack（Auth / AppTabs 分流）
