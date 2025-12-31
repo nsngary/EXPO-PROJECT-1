@@ -1,7 +1,6 @@
 import React from 'react'
 import { Tabs } from 'expo-router'
 import { TabBar } from '@/components/TabBar'
-import { NotoSerifTC_400Regular } from "@expo-google-fonts/noto-serif-tc";
 
 const TabLayout = () => {
   return (

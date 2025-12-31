@@ -11,7 +11,7 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>最新消息</Text>
+      {/* <Text style={styles.title}>最新消息</Text> */}
       <Text style={styles.subtitle}>快速前往</Text>
       <View>
         {navItems.map((item) => (

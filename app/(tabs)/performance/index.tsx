@@ -1,6 +1,7 @@
 import React from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 import { Link } from 'expo-router'
+import { Text } from '../../../components/StyledText'
 
 const PerformanceQuery = () => {
   const navItems = [
@@ -10,7 +11,7 @@ const PerformanceQuery = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>業績查詢</Text>
+      {/* <Text style={styles.title}>業績查詢</Text> */}
       <Text style={styles.subtitle}>快速前往</Text>
       <View>
         {navItems.map((item) => (

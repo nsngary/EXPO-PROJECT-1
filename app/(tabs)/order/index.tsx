@@ -1,11 +1,12 @@
 import React from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 import { Link } from 'expo-router'
+import { Text } from '../../../components/StyledText'
 
 const OnlineOrder = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>線上訂購</Text>
+      {/* <Text style={styles.title}>線上訂購</Text> */}
       <Text style={styles.subtitle}>快速前往</Text>
       <View>
         <Link href="/(tabs)/order/purchase-history" asChild>

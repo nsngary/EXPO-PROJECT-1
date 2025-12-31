@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native'
 import { Link, Href } from 'expo-router'
-
+import { Text } from '../../../components/StyledText'
+ 
 type Role = 'general' | 'vip' | 'vic'
 
 const roleOptions: { value: Role; label: string; }[] = [
@@ -37,7 +38,7 @@ const MemberInfo = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>會員基本資料</Text>
+      {/* <Text style={styles.title}>會員基本資料</Text> */}
       <Text style={styles.subtitle}>角色切換</Text>
       <View style={styles.segmented}>
         {roleOptions.map((option) => {
