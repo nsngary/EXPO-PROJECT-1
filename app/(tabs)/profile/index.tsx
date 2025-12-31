@@ -63,7 +63,7 @@ const MemberInfo = () => {
       <Text style={styles.subtitle}>功能入口</Text>
       <View>
         {visibleNavItems.map((item) => (
-          <Link key={item.label} href={item.href as Href} asChild>
+          <Link key={item.label} href={item.href} asChild>
             <Pressable style={styles.item}>
               <Text style={styles.itemText}>{item.label}</Text>
             </Pressable>
