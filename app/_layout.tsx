@@ -14,7 +14,7 @@ import { NotoSerifTC_400Regular, NotoSerifTC_600SemiBold } from "@expo-google-fo
 void SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
-  anchor: "(tabs)",
+  initialRouteName: "(auth)",
 };
 
 export default function RootLayout() {
@@ -48,6 +48,7 @@ export default function RootLayout() {
 
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       </Stack>
     </>
   );
