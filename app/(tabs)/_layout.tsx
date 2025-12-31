@@ -5,10 +5,13 @@ import { TabBar } from '@/components/TabBar'
 const TabLayout = () => {
   return (
     <Tabs
+      initialRouteName='home'
       tabBar={props => <TabBar {...props} />}
       screenOptions={{ headerShown: false }}
     >
-      <Tabs.Screen name='index' options={{ title: "首頁" }} />
+      
+      <Tabs.Screen name='index' options={{ href: null  }} />
+      <Tabs.Screen name='home' options={{ title: "首頁" }} />
       <Tabs.Screen name='performance' options={{ title: "業績" }} />
       <Tabs.Screen name='order' options={{ title: "訂單" }} />
       <Tabs.Screen name='event' options={{ title: "活動123" }} />
