@@ -6,7 +6,7 @@
 
 ## 新增了 2 tabs
 
-### 修訂項目
+### 修訂項目  (使用 safeArea 解決)
 
 - 在 TabBar.tsx 中 `import { useSafeAreaInsets } from "react-native-safe-area-context";`
 

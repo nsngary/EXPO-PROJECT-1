@@ -7,8 +7,8 @@ type NavItem = { label: string; href: Href }
 
 const Home = () => {
   const navItems: NavItem[] = [
-    { label: '禮物箱', href: '/index/gift-box' },
-    { label: '每日簽到', href: '/index/daily-check-in' },
+    { label: '禮物箱', href: '/home/gift-box' },
+    { label: '每日簽到', href: '/home/daily-check-in' },
   ]
 
   return (
@@ -17,7 +17,7 @@ const Home = () => {
       <Text style={styles.subtitle}>快速前往</Text>
       <View>
         {navItems.map((item) => (
-          <Link key={item.href.toString()} href={item.href} asChild>
+          <Link key={item.label} href={item.href} asChild>
             <Pressable style={styles.item}>
               <Text style={styles.itemText}>{item.label}</Text>
             </Pressable>
