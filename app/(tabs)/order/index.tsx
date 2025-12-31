@@ -1,19 +1,27 @@
 import React from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
-import { Link } from 'expo-router'
+import { Link, Href } from 'expo-router'
 import { Text } from '../../../components/StyledText'
 
+type NavItem = { label: string; href: Href }
+
 const OnlineOrder = () => {
+  const navItems: NavItem[] = [
+    { label: '消費紀錄', href: '/order/purchase-history'},
+    { label: '產品購買', href: '/order/purchase' },
+  ]
   return (
     <View style={styles.container}>
       {/* <Text style={styles.title}>線上訂購</Text> */}
       <Text style={styles.subtitle}>快速前往</Text>
       <View>
-        <Link href="/(tabs)/order/purchase-history" asChild>
-          <Pressable style={styles.item}>
-            <Text style={styles.itemText}>消費紀錄</Text>
-          </Pressable>
-        </Link>
+        {navItems.map((item) => (
+          <Link key={item.label} href={item.href} asChild>
+            <Pressable style={styles.item}>
+              <Text style={styles.itemText}>{item.label}</Text>
+            </Pressable>
+          </Link>
+        ))}
       </View>
     </View>
   )

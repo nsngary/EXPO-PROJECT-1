@@ -26,7 +26,7 @@ type NavItem = {
 const MemberInfo = () => {
   const [role, setRole] = useState<Role>('general')
   
-  const navItems: NavItem[] = ([
+  const navItems: NavItem[] = [
     { label: 'VIP 資料', href: '/profile/vip-info', visible: role === 'vip' },
     { label: 'VIC 資料', href: '/profile/vic-info', visible: role === 'vic' },
     { label: '表單中心', href: '/profile/form-center' },
@@ -34,7 +34,9 @@ const MemberInfo = () => {
     { label: '見證體驗', href: '/profile/testimonials' },
     { label: '設定', href: '/profile/settings' },
     { label: '登出', href: '/profile/logout' },
-  ] as const).filter((item) => ('visible' in item ? item.visible : true))
+  ] satisfies NavItem[]
+
+  const visibleNavItems = navItems.filter((item) => item.visible ?? true)
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -60,8 +62,8 @@ const MemberInfo = () => {
       </View>
       <Text style={styles.subtitle}>功能入口</Text>
       <View>
-        {navItems.map((item) => (
-          <Link key={item.label} href={item.href} asChild>
+        {visibleNavItems.map((item) => (
+          <Link key={item.label} href={item.href as Href} asChild>
             <Pressable style={styles.item}>
               <Text style={styles.itemText}>{item.label}</Text>
             </Pressable>

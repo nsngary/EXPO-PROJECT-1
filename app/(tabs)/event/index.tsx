@@ -1,12 +1,14 @@
 import React from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
-import { Link } from 'expo-router'
+import { Link, Href } from 'expo-router'
 import { Text } from "./../../../components/StyledText";
 
+type NavItem = { label: string; href: Href }
+
 const Calendar = () => {
-  const navItems = [
-    { label: '活動報名', href: '/(tabs)/event/event-signup' },
-    { label: '簽到', href: '/(tabs)/event/event-check-in' },
+  const navItems: NavItem[] = [
+    { label: '活動報名', href: '/event/event-signup' },
+    { label: '簽到', href: '/event/event-check-in' },
   ]
 
   return (
@@ -15,7 +17,7 @@ const Calendar = () => {
       <Text style={styles.subtitle}>快速前往</Text>
       <View>
         {navItems.map((item) => (
-          <Link key={item.href} href={item.href} asChild>
+          <Link key={item.label} href={item.href} asChild>
             <Pressable style={styles.item}>
               <Text style={styles.itemText}>{item.label}</Text>
             </Pressable>

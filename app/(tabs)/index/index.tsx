@@ -3,10 +3,12 @@ import { Pressable, StyleSheet, View } from 'react-native'
 import { Link, Href } from 'expo-router'
 import { Text } from '../../../components/StyledText'
 
+type NavItem = { label: string; href: Href }
+
 const Home = () => {
-  const navItems: { label: string; href: Href }[] = [
-    { label: '禮物箱', href: '/(tabs)/index/gift-box' },
-    { label: '每日簽到', href: '/(tabs)/index/daily-check-in' },
+  const navItems: NavItem[] = [
+    { label: '禮物箱', href: '/index/gift-box' },
+    { label: '每日簽到', href: '/index/daily-check-in' },
   ]
 
   return (

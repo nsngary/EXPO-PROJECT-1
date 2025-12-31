@@ -1,13 +1,15 @@
 import React from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
-import { Link } from 'expo-router'
+import { Link, Href } from 'expo-router'
 import { Text } from '../../../components/StyledText'
 
+type NavItem = { label: string; href: Href}
+
 const PerformanceQuery = () => {
-  const navItems = [
-    { label: '樹狀業績查詢', href: '/(tabs)/performance/tree-performance' },
-    { label: '獎金明細', href: '/(tabs)/performance/bonus-details' },
-  ] as const
+  const navItems: NavItem[] = [
+    { label: '樹狀業績查詢', href: '/performance/tree-performance' },
+    { label: '獎金明細', href: '/performance/bonus-details' },
+  ]
 
   return (
     <View style={styles.container}>
@@ -15,7 +17,7 @@ const PerformanceQuery = () => {
       <Text style={styles.subtitle}>快速前往</Text>
       <View>
         {navItems.map((item) => (
-          <Link key={item.href} href={item.href} asChild>
+          <Link key={item.label} href={item.href} asChild>
             <Pressable style={styles.item}>
               <Text style={styles.itemText}>{item.label}</Text>
             </Pressable>
