@@ -15,8 +15,8 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Sign in</Text>
-        <Text style={styles.subtitle}>Use your account to continue.</Text>
+        <Text style={styles.title}>登入</Text>
+        <Text style={styles.subtitle}>請輸入帳號資訊</Text>
       </View>
 
       <View>
@@ -43,6 +43,7 @@ export default function LoginScreen() {
           textContentType="password"
           placeholder="Enter your password"
           placeholderTextColor="#9ca3af"
+          // placeholderFontFamily="NotoSerifTC-400Regular"
           style={styles.input}
         />
 

@@ -5,8 +5,8 @@ const EventStackLayout = () => {
   return (
     <Stack screenOptions={{
       headerTitleStyle:{
-        fontFamily: 'NotoSerifTC_400Regular',
-        fontWeight: '600',
+        fontFamily: 'NotoSerifTC_600SemiBold',
+        // fontWeight: '600',
       }
     }}>
       <Stack.Screen name="index" options={{ title: '行事曆' }} />

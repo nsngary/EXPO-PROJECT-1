@@ -5,11 +5,11 @@ const ProfileStackLayout = () => {
   return (
     <Stack screenOptions={{
       headerTitleStyle:{
-        fontFamily: 'NotoSerifTC_400Regular',
-        fontWeight: '600',
+        fontFamily: 'NotoSerifTC_600SemiBold',
+        // fontWeight: '600',
       }
     }}>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ title: '個人', headerShown: true }} />
       <Stack.Screen name="vip-info" options={{ title: 'VIP 資料' }} />
       <Stack.Screen name="vic-info" options={{ title: 'VIC 資料' }} />
       <Stack.Screen name="form-center" options={{ title: '表單中心' }} />

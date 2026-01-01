@@ -8,7 +8,10 @@ import {
   NotoSansTC_400Regular,
   NotoSansTC_600SemiBold,
 } from "@expo-google-fonts/noto-sans-tc";
-import { NotoSerifTC_400Regular, NotoSerifTC_600SemiBold } from "@expo-google-fonts/noto-serif-tc";
+import { 
+  NotoSerifTC_400Regular, 
+  NotoSerifTC_600SemiBold 
+} from "@expo-google-fonts/noto-serif-tc";
 
 // prevent the splah screen from auto-higing before asset loading is
 void SplashScreen.preventAutoHideAsync();
