@@ -1,27 +1,14 @@
 import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
-import { useEffect } from "react";
 import "react-native-reanimated";
 import { StatusBar } from "expo-status-bar";
-import {
-  NotoSansTC_400Regular,
-  NotoSansTC_600SemiBold,
-} from "@expo-google-fonts/noto-sans-tc";
-import { 
-  NotoSerifTC_400Regular, 
-  NotoSerifTC_600SemiBold 
-} from "@expo-google-fonts/noto-serif-tc";
-
-// prevent the splah screen from auto-higing before asset loading is
-void SplashScreen.preventAutoHideAsync();
-
-export const unstable_settings = {
-  initialRouteName: "(auth)",
-};
+import { NotoSansTC_400Regular, NotoSansTC_600SemiBold, } from "@expo-google-fonts/noto-sans-tc";
+import { NotoSerifTC_400Regular, NotoSerifTC_600SemiBold, } from "@expo-google-fonts/noto-serif-tc";
+import { SessionProvider, useSession } from "@/ctx";
+import { SplashScreenController } from "@/splash";
 
 export default function RootLayout() {
-  const [loaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     NotoSansTC_400Regular,
     NotoSansTC_600SemiBold,
@@ -29,30 +16,38 @@ export default function RootLayout() {
     NotoSerifTC_600SemiBold,
   });
 
-  useEffect(() => {
-    if (loaded) {
-      void SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+  return (
+    <SessionProvider>
+      <SplashScreenController fontsLoaded={fontsLoaded} />
+      {fontsLoaded ? (
+        <>
+          {/* <StatusBar style="auto" /> */}
+          <StatusBar
+            style="dark"
+            backgroundColor="#ffffff"
+            translucent
+            hidden={false}
+          />
+          <RootNavigator />
+        </>
+      ) : null}
+    </SessionProvider>
+  );
+}
 
-  if (!loaded) {
-    return null;
-  }
+function RootNavigator() {
+  const { session } = useSession();
 
   return (
-    <>
-      {/* <StatusBar style="auto" /> */}
-      <StatusBar
-        style="dark"
-        backgroundColor="#ffffff"
-        translucent={true}
-        hidden={false}
-      />
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Protected guard={!!session}>
+        <Stack.Screen name="(app)" />
+      </Stack.Protected>
 
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      </Stack>
-    </>
+      <Stack.Protected guard={!session}>
+        <Stack.Screen name="sign-in" />
+        <Stack.Screen name="create-account" />
+      </Stack.Protected>
+    </Stack>
   );
 }

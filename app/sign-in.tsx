@@ -2,14 +2,16 @@ import { useState } from "react";
 import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import { router } from "expo-router";
 import { Text } from "@/components/StyledText";
+import { useSession } from "@/ctx";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { signIn } = useSession();
 
   const onLogin = () => {
-    router.dismissAll();
-    router.replace("/(tabs)/home");
+    signIn();
+    router.replace("/");
   };
 
   return (

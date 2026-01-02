@@ -9,7 +9,6 @@ const TabLayout = () => {
       tabBar={props => <TabBar {...props} />}
       screenOptions={{ headerShown: false }}
     >
-      
       <Tabs.Screen name='home' options={{ title: "首頁" }} />
       <Tabs.Screen name='performance' options={{ title: "業績" }} />
       <Tabs.Screen name='order' options={{ title: "訂單" }} />
@@ -18,6 +17,5 @@ const TabLayout = () => {
     </Tabs>
   )
 };
-
 
 export default TabLayout

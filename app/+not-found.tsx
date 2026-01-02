@@ -1,15 +1,16 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import { Text } from "@/components/StyledText";
 
-const Logout = () => {
+const NotFount = () => {
   return (
     <View style={styles.container}>
-      <Text>登出</Text>
+      <Text>Not Found</Text>
     </View>
   )
 }
 
-export default Logout
+export default NotFount
 
 const styles = StyleSheet.create({
   container: {

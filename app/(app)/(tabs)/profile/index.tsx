@@ -1,42 +1,42 @@
-import React, { useState } from 'react'
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native'
-import { Link, Href } from 'expo-router'
-import { Text } from '../../../components/StyledText'
- 
-type Role = 'general' | 'vip' | 'vic'
+import { Href, Link } from "expo-router";
+import React, { useState } from "react";
+import { Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Text } from "@/components/StyledText";
 
-const roleOptions: { value: Role; label: string; }[] = [
-  { value: 'general', label: '一般' },
-  { value: 'vip', label: 'VIP' },
-  { value: 'vic', label: 'VIC' },
-]
+type Role = "general" | "vip" | "vic";
+
+const roleOptions: { value: Role; label: string }[] = [
+  { value: "general", label: "一般" },
+  { value: "vip", label: "VIP" },
+  { value: "vic", label: "VIC" },
+];
 
 const roleLabels: Record<Role, string> = {
-  general: '一般',
-  vip: 'VIP',
-  vic: 'VIC',
-}
+  general: "一般",
+  vip: "VIP",
+  vic: "VIC",
+};
 
 type NavItem = {
-  label: string
-  href: Href
-  visible?: boolean
-}
+  label: string;
+  href: Href;
+  visible?: boolean;
+};
 
 const MemberInfo = () => {
-  const [role, setRole] = useState<Role>('general')
-  
-  const navItems: NavItem[] = [
-    { label: 'VIP 資料', href: '/profile/vip-info', visible: role === 'vip' },
-    { label: 'VIC 資料', href: '/profile/vic-info', visible: role === 'vic' },
-    { label: '表單中心', href: '/profile/form-center' },
-    { label: '產品檢驗文件', href: '/profile/product-certificates' },
-    { label: '見證體驗', href: '/profile/testimonials' },
-    { label: '設定', href: '/profile/settings' },
-    { label: '登出', href: '/profile/logout' },
-  ] satisfies NavItem[]
+  const [role, setRole] = useState<Role>("general");
 
-  const visibleNavItems = navItems.filter((item) => item.visible ?? true)
+  const navItems: NavItem[] = [
+    { label: "VIP 資料", href: "/profile/vip-info", visible: role === "vip" },
+    { label: "VIC 資料", href: "/profile/vic-info", visible: role === "vic" },
+    { label: "表單中心", href: "/profile/form-center" },
+    { label: "產品檢驗文件", href: "/profile/product-certificates" },
+    { label: "見證體驗", href: "/profile/testimonials" },
+    { label: "設定", href: "/profile/settings" },
+    { label: "登出", href: "/profile/logout" },
+  ] satisfies NavItem[];
+
+  const visibleNavItems = navItems.filter((item) => item.visible ?? true);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -44,7 +44,7 @@ const MemberInfo = () => {
       <Text style={styles.subtitle}>角色切換</Text>
       <View style={styles.segmented}>
         {roleOptions.map((option) => {
-          const isActive = role === option.value
+          const isActive = role === option.value;
           return (
             <Pressable
               key={option.value}
@@ -52,12 +52,15 @@ const MemberInfo = () => {
               style={[styles.segment, isActive && styles.segmentActive]}
             >
               <Text
-                style={[styles.segmentText, isActive && styles.segmentTextActive]}
+                style={[
+                  styles.segmentText,
+                  isActive && styles.segmentTextActive,
+                ]}
               >
                 {option.label}
               </Text>
             </Pressable>
-          )
+          );
         })}
       </View>
       <Text style={styles.subtitle}>功能入口</Text>
@@ -72,10 +75,10 @@ const MemberInfo = () => {
       </View>
       <Text style={styles.helper}>目前角色：{roleLabels[role]}</Text>
     </ScrollView>
-  )
-}
+  );
+};
 
-export default MemberInfo
+export default MemberInfo;
 
 const styles = StyleSheet.create({
   container: {
@@ -84,54 +87,54 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 14,
-    color: '#6b7280',
+    color: "#6b7280",
     marginBottom: 12,
   },
   segmented: {
-    flexDirection: 'row',
-    backgroundColor: '#e5e7eb',
+    flexDirection: "row",
+    backgroundColor: "#e5e7eb",
     borderRadius: 999,
     padding: 4,
     marginBottom: 16,
   },
   segment: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 8,
     borderRadius: 999,
   },
   segmentActive: {
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
   },
   segmentText: {
     fontSize: 13,
-    color: '#6b7280',
+    color: "#6b7280",
   },
   segmentTextActive: {
-    color: '#111827',
-    fontWeight: '600',
+    color: "#111827",
+    fontWeight: "600",
   },
   item: {
     paddingVertical: 12,
     paddingHorizontal: 16,
-    backgroundColor: '#EEF2FF',
-    borderColor: '#6B85C2',
+    backgroundColor: "#EEF2FF",
+    borderColor: "#6B85C2",
     borderWidth: 0.01,
     borderRadius: 12,
     marginBottom: 10,
   },
   itemText: {
     fontSize: 16,
-    color: '#111827',
+    color: "#111827",
   },
   helper: {
     marginTop: 8,
     fontSize: 12,
-    color: '#6b7280',
+    color: "#6b7280",
   },
-})
+});

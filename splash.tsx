@@ -1,14 +1,18 @@
-import { SplashScreen } from 'expo-router';
-import { useSession } from './ctx';
+import { useEffect } from "react";
+import { SplashScreen } from "expo-router";
+import { useSession } from "./ctx";
 
 SplashScreen.preventAutoHideAsync();
 
-export function SplashScreenController() {
+export function SplashScreenController({ fontsLoaded }: { fontsLoaded: boolean }) {
   const { isLoading } = useSession();
+  const ready = fontsLoaded && !isLoading;
 
-  if (!isLoading) {
-    SplashScreen.hide();
-  }
+  useEffect(() => {
+    if (ready) {
+      SplashScreen.hide();
+    }
+  }, [ready]);
 
   return null;
 }

@@ -1,18 +1,19 @@
-import React from 'react'
-import { Pressable, StyleSheet, View } from 'react-native'
-import { Link, Href } from 'expo-router'
-import { Text } from '../../../components/StyledText'
+import { Href, Link } from "expo-router";
+import React from "react";
+import { Pressable, StyleSheet, View } from "react-native";
+import { Text } from "@/components/StyledText";
 
-type NavItem = { label: string; href: Href }
+type NavItem = { label: string; href: Href };
 
-const OnlineOrder = () => {
+const Home = () => {
   const navItems: NavItem[] = [
-    { label: '消費紀錄', href: '/order/purchase-history'},
-    { label: '產品購買', href: '/order/purchase' },
-  ]
+    { label: "禮物箱", href: "/home/gift-box" },
+    { label: "每日簽到", href: "/home/daily-check-in" },
+  ];
+
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.title}>線上訂購</Text> */}
+      {/* <Text style={styles.title}>最新消息</Text> */}
       <Text style={styles.subtitle}>快速前往</Text>
       <View>
         {navItems.map((item) => (
@@ -24,10 +25,10 @@ const OnlineOrder = () => {
         ))}
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default OnlineOrder
+export default Home;
 
 const styles = StyleSheet.create({
   container: {
@@ -36,22 +37,23 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 14,
-    color: '#6b7280',
+    color: "#6b7280",
     marginBottom: 12,
   },
   item: {
     paddingVertical: 12,
     paddingHorizontal: 16,
-    backgroundColor: '#f3f4f6',
+    backgroundColor: "#f3f4f6",
     borderRadius: 12,
+    marginBottom: 10,
   },
   itemText: {
     fontSize: 16,
-    color: '#111827',
+    color: "#111827",
   },
-})
+});
