@@ -64,11 +64,15 @@
             ]
           },
           "ios": {
-            "fonts": ["./assets/fonts/Inter-Bold.ttf", "./assets/fonts/Inter-BoldItalic.ttf"]
+            "fonts": [
+              "./assets/fonts/Inter-Bold.ttf",
+              "./assets/fonts/Inter-BoldItalic.ttf"
+            ]
           }
         }
       ],
-      "expo-asset"
+      "expo-asset",
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true,
