@@ -1,5 +1,6 @@
 import { View, StyleSheet, LayoutChangeEvent } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import { useTheme } from "@react-navigation/native";
 // import { Feather } from '@expo/vector-icons'
 import TabBarButton from "./TabBarButton";
 import { useState } from "react";
@@ -31,6 +32,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   });
 
   const insets = useSafeAreaInsets();
+  const { colors } = useTheme();
 
   return (
     <View
@@ -41,6 +43,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
           left: insets.left + 15,
           right: insets.right + 15,
           paddingHorizontal: 0,
+          backgroundColor: colors.card,
         },
       ]}
     >
@@ -49,7 +52,8 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
           animatedStyle,
           {
             position: "absolute",
-            backgroundColor: "#EEF2FF",
+            backgroundColor: colors.primary,
+            opacity: 0.15,
             borderRadius: 30,
             height: dimensions.height - 15,
             width: buttonWidth - 15,
@@ -98,7 +102,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
             onLongPress={onLongPress}
             isFocused={isFocused}
             routeName={route.name}
-            color={isFocused ? "#673ab7" : "#222"}
+            color={isFocused ? colors.primary : colors.text}
             label={label}
           />
         );
@@ -117,7 +121,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#fff",
     paddingVertical: 12,
     borderRadius: 35,
     shadowOffset: { width: 0, height: 10 },

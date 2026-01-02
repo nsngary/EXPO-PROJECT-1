@@ -1,24 +1,31 @@
 import { Href, Link } from "expo-router";
 import React from "react";
 import { Pressable, StyleSheet, View } from "react-native";
+import { useTheme } from "@react-navigation/native";
 import { Text } from "@/components/StyledText";
 
 type NavItem = { label: string; href: Href };
 
 const OnlineOrder = () => {
+  const { colors } = useTheme();
+
   const navItems: NavItem[] = [
     { label: "消費紀錄", href: "/order/purchase-history" },
     { label: "產品購買", href: "/order/purchase" },
   ];
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       {/* <Text style={styles.title}>線上訂購</Text> */}
-      <Text style={styles.subtitle}>快速前往</Text>
+      <Text style={[styles.subtitle, { color: colors.text, opacity: 0.6 }]}>
+        快速前往
+      </Text>
       <View>
         {navItems.map((item) => (
           <Link key={item.label} href={item.href} asChild>
-            <Pressable style={styles.item}>
-              <Text style={styles.itemText}>{item.label}</Text>
+            <Pressable style={[styles.item, { backgroundColor: colors.card }]}>
+              <Text style={[styles.itemText, { color: colors.text }]}>
+                {item.label}
+              </Text>
             </Pressable>
           </Link>
         ))}
@@ -41,17 +48,14 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 14,
-    color: "#6b7280",
     marginBottom: 12,
   },
   item: {
     paddingVertical: 12,
     paddingHorizontal: 16,
-    backgroundColor: "#f3f4f6",
     borderRadius: 12,
   },
   itemText: {
     fontSize: 16,
-    color: "#111827",
   },
 });

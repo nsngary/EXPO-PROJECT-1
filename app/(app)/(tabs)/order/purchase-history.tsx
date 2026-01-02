@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
+import { useTheme } from '@react-navigation/native'
+import { Text } from '@/components/StyledText'
 
 type Role = 'general' | 'vip' | 'vic'
 type Scope = 'general' | 'vip' | 'vic'
@@ -32,26 +34,35 @@ const PurchaseHistory = () => {
   const [role, setRole] = useState<Role>('general')
   const availableScopes = scopesByRole[role]
   const [scope, setScope] = useState<Scope>(availableScopes[0])
+  const { colors } = useTheme()
+  const mutedTextStyle = { color: colors.text, opacity: 0.6 }
 
   useEffect(() => {
     setScope(scopesByRole[role][0])
   }, [role])
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Text style={styles.title}>消費紀錄</Text>
-      <Text style={styles.subtitle}>角色切換</Text>
-      <View style={styles.segmented}>
+      <Text style={[styles.subtitle, mutedTextStyle]}>角色切換</Text>
+      <View style={[styles.segmented, { backgroundColor: colors.border }]}>
         {roleOptions.map((option) => {
           const isActive = role === option.value
           return (
             <Pressable
               key={option.value}
               onPress={() => setRole(option.value)}
-              style={[styles.segment, isActive && styles.segmentActive]}
+              style={[
+                styles.segment,
+                isActive && [styles.segmentActive, { backgroundColor: colors.card }],
+              ]}
             >
               <Text
-                style={[styles.segmentText, isActive && styles.segmentTextActive]}
+                style={[
+                  styles.segmentText,
+                  mutedTextStyle,
+                  isActive && [styles.segmentTextActive, { color: colors.text }],
+                ]}
               >
                 {option.label}
               </Text>
@@ -59,18 +70,25 @@ const PurchaseHistory = () => {
           )
         })}
       </View>
-      <Text style={styles.subtitle}>可見範圍</Text>
-      <View style={styles.segmented}>
+      <Text style={[styles.subtitle, mutedTextStyle]}>可見範圍</Text>
+      <View style={[styles.segmented, { backgroundColor: colors.border }]}>
         {availableScopes.map((scopeOption) => {
           const isActive = scope === scopeOption
           return (
             <Pressable
               key={scopeOption}
               onPress={() => setScope(scopeOption)}
-              style={[styles.segment, isActive && styles.segmentActive]}
+              style={[
+                styles.segment,
+                isActive && [styles.segmentActive, { backgroundColor: colors.card }],
+              ]}
             >
               <Text
-                style={[styles.segmentText, isActive && styles.segmentTextActive]}
+                style={[
+                  styles.segmentText,
+                  mutedTextStyle,
+                  isActive && [styles.segmentTextActive, { color: colors.text }],
+                ]}
               >
                 {scopeLabels[scopeOption]}
               </Text>
@@ -79,8 +97,12 @@ const PurchaseHistory = () => {
         })}
       </View>
       <View style={styles.summary}>
-        <Text style={styles.summaryText}>目前角色：{roleLabels[role]}</Text>
-        <Text style={styles.summaryText}>顯示範圍：{scopeLabels[scope]}</Text>
+        <Text style={[styles.summaryText, mutedTextStyle]}>
+          目前角色：{roleLabels[role]}
+        </Text>
+        <Text style={[styles.summaryText, mutedTextStyle]}>
+          顯示範圍：{scopeLabels[scope]}
+        </Text>
       </View>
     </View>
   )
@@ -100,12 +122,10 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 14,
-    color: '#6b7280',
     marginBottom: 12,
   },
   segmented: {
     flexDirection: 'row',
-    backgroundColor: '#e5e7eb',
     borderRadius: 999,
     padding: 4,
     marginBottom: 16,
@@ -117,14 +137,11 @@ const styles = StyleSheet.create({
     borderRadius: 999,
   },
   segmentActive: {
-    backgroundColor: '#ffffff',
   },
   segmentText: {
     fontSize: 13,
-    color: '#6b7280',
   },
   segmentTextActive: {
-    color: '#111827',
     fontWeight: '600',
   },
   summary: {
@@ -132,7 +149,6 @@ const styles = StyleSheet.create({
   },
   summaryText: {
     fontSize: 12,
-    color: '#6b7280',
     marginBottom: 4,
   },
 })

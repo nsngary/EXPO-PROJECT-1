@@ -1,5 +1,15 @@
 import { Stack } from "expo-router";
+import { useTheme } from "@react-navigation/native";
 
 export default function AppLayout() {
-  return <Stack screenOptions={{ headerShown: false }} />;
+  const { colors } = useTheme();
+
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { backgroundColor: colors.background },
+      }}
+    />
+  );
 }

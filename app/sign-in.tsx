@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { Pressable, StyleSheet, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, TextInput, View, useColorScheme } from "react-native";
 import { router } from "expo-router";
 import { Text } from "@/components/StyledText";
 import { useSession } from "@/ctx";
+import { Colors } from "@/constants/Colors";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signIn } = useSession();
+  const scheme = useColorScheme();
+  const palette = scheme === "dark" ? Colors.dark : Colors.light;
 
   const onLogin = () => {
     signIn();
@@ -15,14 +18,16 @@ export default function LoginScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: palette.background }]}>
       <View style={styles.header}>
-        <Text style={styles.title}>登入</Text>
-        <Text style={styles.subtitle}>請輸入帳號資訊</Text>
+        <Text style={[styles.title, { color: palette.text }]}>登入</Text>
+        <Text style={[styles.subtitle, { color: palette.mutedText }]}>
+          請輸入帳號資訊
+        </Text>
       </View>
 
       <View>
-        <Text style={styles.label}>Email</Text>
+        <Text style={[styles.label, { color: palette.mutedText }]}>Email</Text>
         <TextInput
           value={email}
           onChangeText={setEmail}
@@ -31,11 +36,20 @@ export default function LoginScreen() {
           keyboardType="email-address"
           textContentType="emailAddress"
           placeholder="you@example.com"
-          placeholderTextColor="#9ca3af"
-          style={styles.input}
+          placeholderTextColor={palette.mutedText}
+          style={[
+            styles.input,
+            {
+              borderColor: palette.border,
+              backgroundColor: palette.card,
+              color: palette.text,
+            },
+          ]}
         />
 
-        <Text style={styles.label}>Password</Text>
+        <Text style={[styles.label, { color: palette.mutedText }]}>
+          Password
+        </Text>
         <TextInput
           value={password}
           onChangeText={setPassword}
@@ -44,17 +58,26 @@ export default function LoginScreen() {
           secureTextEntry
           textContentType="password"
           placeholder="Enter your password"
-          placeholderTextColor="#9ca3af"
+          placeholderTextColor={palette.mutedText}
           // placeholderFontFamily="NotoSerifTC-400Regular"
-          style={styles.input}
+          style={[
+            styles.input,
+            {
+              borderColor: palette.border,
+              backgroundColor: palette.card,
+              color: palette.text,
+            },
+          ]}
         />
 
         <Pressable
           accessibilityRole="button"
-          style={styles.button}
+          style={[styles.button, { backgroundColor: palette.primary }]}
           onPress={onLogin}
         >
-          <Text style={styles.buttonText}>Sign in</Text>
+          <Text style={[styles.buttonText, { color: Colors.light.background }]}>
+            Sign in
+          </Text>
         </Pressable>
       </View>
     </View>
@@ -65,7 +88,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: "#ffffff",
     justifyContent: "center",
   },
   header: {
@@ -74,37 +96,29 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#111827",
   },
   subtitle: {
     fontSize: 14,
-    color: "#6b7280",
     marginTop: 6,
   },
   label: {
     fontSize: 12,
-    color: "#6b7280",
     marginBottom: 6,
   },
   input: {
     borderWidth: 1,
-    borderColor: "#e5e7eb",
     borderRadius: 12,
     paddingHorizontal: 14,
     paddingVertical: 12,
-    backgroundColor: "#f9fafb",
-    color: "#111827",
     marginBottom: 14,
   },
   button: {
     marginTop: 4,
-    backgroundColor: "#111827",
     paddingVertical: 12,
     borderRadius: 12,
     alignItems: "center",
   },
   buttonText: {
-    color: "#ffffff",
     fontSize: 16,
   },
 });

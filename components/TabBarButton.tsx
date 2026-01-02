@@ -71,12 +71,10 @@ const TabBarButton = ({
       style={styles.tabbarItem}
     >
       <Animated.View style={animatedIconStyle}>
-        <Icon color={isFocused ? "#2F4474" : "#6B85C2"} />
+        <Icon color={color} />
       </Animated.View>
 
-      <AnimatedText
-        style={[styles.label, animatedTextStyle]}
-      >
+      <AnimatedText style={[styles.label, { color }, animatedTextStyle]}>
         {label}
       </AnimatedText>
     </Pressable>
@@ -93,7 +91,6 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   label: {
-    color: "#6B85C2",
     fontSize: 12,
   },
 });

@@ -1,6 +1,7 @@
 import { Href, Link } from "expo-router";
 import React, { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { useTheme } from "@react-navigation/native";
 import { Text } from "@/components/StyledText";
 
 type Role = "general" | "vip" | "vic";
@@ -25,6 +26,7 @@ type NavItem = {
 
 const MemberInfo = () => {
   const [role, setRole] = useState<Role>("general");
+  const { colors } = useTheme();
 
   const navItems: NavItem[] = [
     { label: "VIP 資料", href: "/profile/vip-info", visible: role === "vip" },
@@ -39,22 +41,31 @@ const MemberInfo = () => {
   const visibleNavItems = navItems.filter((item) => item.visible ?? true);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      style={{ backgroundColor: colors.background }}
+      contentContainerStyle={styles.container}
+    >
       {/* <Text style={styles.title}>會員基本資料</Text> */}
-      <Text style={styles.subtitle}>角色切換</Text>
-      <View style={styles.segmented}>
+      <Text style={[styles.subtitle, { color: colors.text, opacity: 0.6 }]}>
+        角色切換
+      </Text>
+      <View style={[styles.segmented, { backgroundColor: colors.border }]}>
         {roleOptions.map((option) => {
           const isActive = role === option.value;
           return (
             <Pressable
               key={option.value}
               onPress={() => setRole(option.value)}
-              style={[styles.segment, isActive && styles.segmentActive]}
+              style={[
+                styles.segment,
+                isActive && [styles.segmentActive, { backgroundColor: colors.card }],
+              ]}
             >
               <Text
                 style={[
                   styles.segmentText,
-                  isActive && styles.segmentTextActive,
+                  { color: colors.text, opacity: 0.6 },
+                  isActive && [styles.segmentTextActive, { color: colors.text }],
                 ]}
               >
                 {option.label}
@@ -63,17 +74,28 @@ const MemberInfo = () => {
           );
         })}
       </View>
-      <Text style={styles.subtitle}>功能入口</Text>
+      <Text style={[styles.subtitle, { color: colors.text, opacity: 0.6 }]}>
+        功能入口
+      </Text>
       <View>
         {visibleNavItems.map((item) => (
           <Link key={item.label} href={item.href} asChild>
-            <Pressable style={styles.item}>
-              <Text style={styles.itemText}>{item.label}</Text>
+            <Pressable
+              style={[
+                styles.item,
+                { backgroundColor: colors.card, borderColor: colors.border },
+              ]}
+            >
+              <Text style={[styles.itemText, { color: colors.text }]}>
+                {item.label}
+              </Text>
             </Pressable>
           </Link>
         ))}
       </View>
-      <Text style={styles.helper}>目前角色：{roleLabels[role]}</Text>
+      <Text style={[styles.helper, { color: colors.text, opacity: 0.6 }]}>
+        目前角色：{roleLabels[role]}
+      </Text>
     </ScrollView>
   );
 };
@@ -92,12 +114,10 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 14,
-    color: "#6b7280",
     marginBottom: 12,
   },
   segmented: {
     flexDirection: "row",
-    backgroundColor: "#e5e7eb",
     borderRadius: 999,
     padding: 4,
     marginBottom: 16,
@@ -109,32 +129,25 @@ const styles = StyleSheet.create({
     borderRadius: 999,
   },
   segmentActive: {
-    backgroundColor: "#ffffff",
   },
   segmentText: {
     fontSize: 13,
-    color: "#6b7280",
   },
   segmentTextActive: {
-    color: "#111827",
     fontWeight: "600",
   },
   item: {
     paddingVertical: 12,
     paddingHorizontal: 16,
-    backgroundColor: "#EEF2FF",
-    borderColor: "#6B85C2",
     borderWidth: 0.01,
     borderRadius: 12,
     marginBottom: 10,
   },
   itemText: {
     fontSize: 16,
-    color: "#111827",
   },
   helper: {
     marginTop: 8,
     fontSize: 12,
-    color: "#6b7280",
   },
 });
