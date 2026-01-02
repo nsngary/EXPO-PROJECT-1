@@ -2,8 +2,13 @@
 
 ## 20251231
 
-- 修正app 根目錄的關係路由
-    - https://docs.expo.dev/router/advanced/authentication/
+1. 修正app 根目錄的關係路由
+    `[官方文件](https://docs.expo.dev/router/advanced/authentication/)`
+
+2. 製作 theme
+    `[官方文件](https://docs.expo.dev/develop/user-interface/color-themes/)`
+
+3. 將 git branch 重新命名與正規化
 
 ## 20251229
 

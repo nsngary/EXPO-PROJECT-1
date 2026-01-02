@@ -1,4 +1,8 @@
-# 我已將原先的分支 tutorial ，完全複製成一個新的分支 nav-advanced。並修改原先的tabs與新增tabs，現在是首頁, 業績, 訂單, 活動, 我的，共五個tabs(原先三個)
+# 新增 TabBar 導航分支 nav-advanced
+
+我已將原先的分支 tutorial 完全複製成一個新的分支 nav-advanced。
+並修改原先的 tabs 與新增 tabs，現在是首頁、業績、訂單、活動、我的，
+共五個 tabs（原先三個）
 
 但是多了兩個tab後，tabbar並沒有因此變寬，所以所有的tabs都擠在一起。
 
